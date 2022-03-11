@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Category System</title>
+    <style>
+        body {
+            background-image:url("{{url_for('static', filename='bck.jpg')}}");
+        }
+    </style>
+
+    
+
+
+  </head>
+
+  <body>
+      
+
+    <div class="topnav" style="background-color:black; height: 50px;">
+        
+        <a href="/home/{{username}}" class="btn btn-info" style="margin-left: 5px;margin-top: 5px;">Home</a>
+    </div>
+      <div style= "margin-top: 100px;" class="container">
+        
+        <form action="/add/{{username}}" method="GET,POST">
+            <div class="form-group"></div>
+            <input type="text" name="category" id="category" style="padding-top: 2px; padding-bottom: 7px;" placeholder="Category name">
+            <input type="submit" value="Add Category" id="add" class="btn btn-primary">
+        </form>
+        <br>
+        <br>
+        
+        {% if categories == [] %}
+            <div class="alert alert-warning" role="alert">
+                There is no Category
+            </div>
+            
+        {% else %}
+            <table class="table" style="background-color:rgb(151, 198, 212)" >
+                <thead>
+                    <tr>
+                        <th scope="col">Categories</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cat in categories %}
+                    <tr>
+                        <th scope="row"><a href="/subcategory/{{cat.id}}/{{username}}">{{cat.category}}</a></th>
+                        <td>
+                        <form action="/update/{{cat.id}}/category/{{username}}" method="GET,POST">
+                            <input type="text" name="category" id="category" style="padding-top: 2px; padding-bottom: 7px;" placeholder="Category name">
+                            <input type="submit" value="Update" id="update" class="btn btn-primary">
+                        </form></td>
+                        <td><a href="/delete/{{cat.id}}/category/{{username}}" class="btn btn-info">Delete</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+        
+
+      </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <!-- Bootstrap Javascript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+</body>
+
+</html>

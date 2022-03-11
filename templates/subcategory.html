@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <title>Category System</title>
+    
+    <style>
+        body {
+            background-image:url("{{url_for('static', filename='bck.jpg')}}");
+        }
+    </style>
+
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Category Management System</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li ><a href="/home/{{username}}">Home</a></li>
+          <li class="dropdown active"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Categories <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                {% for cat in categories %}
+                <li><a href="/subcategory/{{cat.id}}/{{username}}">{{cat.category}}</a></li>
+                {% endfor %}
+                <li class="divider"></li>
+                <li><a href="/category/{{username}}">Edit</a></li>
+            </ul>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="/logout"><span class="glyphicon glyphicon-user"></span> Log Out</a></li>
+        </ul>
+      </div>
+    </nav>
+
+      <div style= "margin-top: 100px;" class="container">
+        
+        <form action="/addsub/{{username}}/{{id}}" method="GET,POST">
+            <div class="form-group"></div>
+            <input type="text" name="subcategory" id="subcategory" style="padding-top: 2px; padding-bottom: 7px;" placeholder="Subcategory name">
+            <input type="submit" value="Add Subcategory" id="add" class="btn btn-primary">
+        </form>
+        <br>
+        <br>
+        
+        {% if products == [] %}
+            <div class="alert alert-warning" role="alert">
+                There is no Subcategory
+            </div>
+            
+        {% else %}
+            <table class="table" style="background-color:rgb(151, 198, 212)">
+                <thead>
+                    <tr>
+                        <th scope="col">Subcategories</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for sub in products %}
+                    <tr>
+                        <th scope="row">{{sub.name}}</th>
+                        <td>
+                        <form action="/update/{{sub.id}}/subcategory/{{username}}" method="GET,POST">
+                            <input type="text" name="subcategory" id="subcategory" style="padding-top: 2px; padding-bottom: 7px;" placeholder="Subcategory name">
+                            <input type="submit" value="Update" id="update" class="btn btn-primary">
+                        </form></td>
+                        <td><a href="/delete/{{sub.id}}/subcategory/{{username}}" class="btn btn-primary">Delete</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+        
+
+      </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <!-- Bootstrap Javascript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+</body>
+
+</html>
